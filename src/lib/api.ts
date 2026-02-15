@@ -1,6 +1,6 @@
 import type { LeaseReport } from "@/lib/types";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:3001";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:2001";
 
 export type HealthCheckResult = {
   ok: boolean;
