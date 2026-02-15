@@ -3,16 +3,18 @@
 import { useMemo, useRef, useState } from "react";
 import { analyzeLease } from "@/lib/api";
 import type { LeaseReport } from "@/lib/types";
-import ReportView from "@/components/ReportView";
 
 type Status = "idle" | "uploading" | "done" | "error";
 
-export default function UploadCard() {
+type UploadCardProps = {
+  onReportChange: (report: LeaseReport | null) => void;
+};
+
+export default function UploadCard({ onReportChange }: UploadCardProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [report, setReport] = useState<LeaseReport | null>(null);
 
   const canSubmit = useMemo(() => !!file && status !== "uploading", [file, status]);
 
@@ -21,23 +23,24 @@ export default function UploadCard() {
 
     setStatus("uploading");
     setError(null);
-    setReport(null);
+    onReportChange(null);
 
     try {
       const res = await analyzeLease(file);
-      setReport(res);
+      onReportChange(res);
       setStatus("done");
     } catch (e: unknown) {
       setStatus("error");
       setError(e instanceof Error ? e.message : "Something went wrong.");
+      onReportChange(null);
     }
   }
 
   function onPickFile(f: File | null) {
     setFile(f);
     setError(null);
-    setReport(null);
     setStatus("idle");
+    onReportChange(null);
   }
 
   function onBrowse() {
@@ -45,10 +48,10 @@ export default function UploadCard() {
   }
 
   return (
-    <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
-      <h2 className="text-lg font-semibold">Upload your tenancy agreement (PDF)</h2>
-      <p className="mt-2 text-sm text-neutral-300">
-        You’ll get a structured report: lease snapshot, key dates, and watch points.
+    <div className="rounded-2xl border border-neutral-200 bg-white p-6">
+      <h2 className="text-2xl font-semibold">Upload your contract here.</h2>
+      <p className="mt-2 text-sm text-neutral-700">
+        Upload the contract you wish to understand
       </p>
 
       <div className="mt-5">
@@ -71,7 +74,7 @@ export default function UploadCard() {
         <button
           onClick={onSubmit}
           disabled={!canSubmit}
-          className="rounded-xl bg-emerald-500 px-4 py-2 text-sm font-semibold text-neutral-950 disabled:cursor-not-allowed disabled:bg-neutral-700 disabled:text-neutral-300"
+          className="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-500"
         >
           {status === "uploading" ? "Analyzing..." : "Analyze lease"}
         </button>
@@ -79,25 +82,19 @@ export default function UploadCard() {
         <button
           onClick={() => onPickFile(null)}
           disabled={!file || status === "uploading"}
-          className="rounded-xl border border-neutral-800 bg-neutral-950/30 px-4 py-2 text-sm text-neutral-200 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-xl border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700 disabled:cursor-not-allowed disabled:opacity-60"
         >
           Clear
         </button>
 
-        <div className="text-xs text-neutral-400">
+        <div className="text-xs text-neutral-600">
           {file ? `${file.name} (${Math.ceil(file.size / 1024)} KB)` : "No file selected"}
         </div>
       </div>
 
       {status === "error" && error && (
-        <div className="mt-4 rounded-xl border border-red-900/60 bg-red-950/40 p-4 text-sm text-red-200">
+        <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
           {error}
-        </div>
-      )}
-
-      {status === "done" && report && (
-        <div className="mt-6">
-          <ReportView report={report} />
         </div>
       )}
     </div>
@@ -122,10 +119,12 @@ function DropZone({
     if (status === "uploading") return;
     setIsDragging(true);
   }
+
   function onDragLeave(e: React.DragEvent) {
     e.preventDefault();
     setIsDragging(false);
   }
+
   function onDrop(e: React.DragEvent) {
     e.preventDefault();
     setIsDragging(false);
@@ -146,11 +145,11 @@ function DropZone({
       onDrop={onDrop}
       className={[
         "rounded-2xl border border-dashed p-6 transition",
-        isDragging ? "border-emerald-500 bg-emerald-950/30" : "border-neutral-700 bg-neutral-950/30",
+        isDragging ? "border-emerald-500 bg-emerald-50" : "border-neutral-300 bg-neutral-50",
       ].join(" ")}
     >
       <div className="flex flex-col items-start gap-3">
-        <div className="text-sm text-neutral-200">
+        <div className="text-sm text-neutral-700">
           {file ? (
             <span>
               Selected: <span className="font-semibold">{file.name}</span>
@@ -163,7 +162,7 @@ function DropZone({
         <button
           onClick={onBrowse}
           disabled={status === "uploading"}
-          className="rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-2 text-sm text-neutral-200 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-xl border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700 disabled:cursor-not-allowed disabled:opacity-60"
         >
           Browse files
         </button>

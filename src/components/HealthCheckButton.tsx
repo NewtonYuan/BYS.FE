@@ -27,11 +27,11 @@ export default function HealthCheckButton() {
         type="button"
         onClick={runHealthCheck}
         disabled={loading}
-        className="inline-flex w-fit items-center rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-2 text-sm font-medium text-neutral-100 transition hover:border-neutral-500 hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex w-fit items-center rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-800 transition hover:border-neutral-400 hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? "Checking..." : "Test /health API"}
       </button>
-      {result ? <p className="text-xs text-neutral-300">{result}</p> : null}
+      {result ? <p className="text-xs text-neutral-600">{result}</p> : null}
     </div>
   );
 }
