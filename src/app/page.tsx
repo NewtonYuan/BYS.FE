@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Header from "@/components/Header";
 import UploadCard from "@/components/UploadCard";
 import HealthCheckButton from "@/components/HealthCheckButton";
 import ReportView from "@/components/ReportView";
@@ -11,17 +12,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-neutral-50 text-neutral-900">
-      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-6 py-10">
+      <Header />
+
+      <div className="mx-auto flex min-h-[calc(100vh-61px)] w-full max-w-7xl flex-col justify-center px-6 py-10">
         <header className="mb-8 flex flex-col items-center gap-4 text-center">
-          {/*<div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1 text-sm text-neutral-600">
-            <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            BeforeYouSign - NZ tenancy agreement clarity for students
-          </div>*/}
           <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            <span className="block text-neutral-600">Understand your contract</span></h1>
-          <h1 className="text-3xl font-semibold tracking-tight md:text-5xl mt-[-8px]">
+            <span className="block text-neutral-700">Understand your contract</span>
             <span
-              className="inline-block px-2 py-1 text-neutral-900"
+              className="mt-2 inline-block px-2 py-1 text-neutral-900 md:text-5xl"
               style={{ backgroundImage: "linear-gradient(to top, #87CEFA 30%, transparent 30%)" }}
             >
               Before You Sign.
@@ -30,7 +28,7 @@ export default function Home() {
           <HealthCheckButton />
         </header>
 
-        <section className="grid items-start gap-6 md:grid-cols-2">
+        <section id="tool" className="grid items-start gap-6 md:grid-cols-2">
           <div className="w-full">
             <UploadCard onReportChange={setReport} />
           </div>
