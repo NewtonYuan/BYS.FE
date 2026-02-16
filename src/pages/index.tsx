@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import Header from "@/components/Header";
 import UploadCard from "@/components/UploadCard";
@@ -15,7 +13,7 @@ export default function Home() {
       <Header />
 
       <div className="mx-auto flex min-h-[calc(100vh-61px)] w-full max-w-7xl flex-col justify-center px-6 py-10">
-        <header className="mb-8 flex flex-col items-center gap-4 text-center">
+        <header id="about" className="mb-8 flex flex-col items-center gap-4 text-center">
           <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
             <span className="block text-neutral-700">Understand your contract</span>
             <span
@@ -49,6 +47,13 @@ export default function Home() {
               )}
             </div>
           </div>
+        </section>
+
+        <section id="contact" className="mt-8 rounded-2xl border border-neutral-200 bg-white p-6">
+          <h2 className="text-lg font-semibold">Contact</h2>
+          <p className="mt-2 text-sm text-neutral-600">
+            Need help rolling this out for your team? Reach us at sales@beforeyousign.local.
+          </p>
         </section>
       </div>
     </main>
