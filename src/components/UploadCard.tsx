@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { analyzeLease } from "@/lib/api";
+import { analyze } from "@/lib/api";
 import type { LeaseReport } from "@/lib/types";
+import { UI } from "@/lib/theme";
 
 type Status = "idle" | "uploading" | "done" | "error";
 
@@ -26,7 +27,7 @@ export default function UploadCard({ onReportChange }: UploadCardProps) {
     onReportChange(null);
 
     try {
-      const res = await analyzeLease(file);
+      const res = await analyze(file);
       onReportChange(res);
       setStatus("done");
     } catch (e: unknown) {
@@ -48,7 +49,7 @@ export default function UploadCard({ onReportChange }: UploadCardProps) {
   }
 
   return (
-    <div className="rounded-2xl border border-neutral-200 bg-white p-6">
+    <div className={`${UI.card} p-6`}>
       <h2 className="text-2xl font-semibold">Upload your contract here.</h2>
       <p className="mt-2 text-sm text-neutral-700">
         Upload the contract you wish to understand
@@ -74,15 +75,15 @@ export default function UploadCard({ onReportChange }: UploadCardProps) {
         <button
           onClick={onSubmit}
           disabled={!canSubmit}
-          className="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-500"
+          className={UI.primaryButton}
         >
-          {status === "uploading" ? "Analyzing..." : "Analyze lease"}
+          {status === "uploading" ? "Analyzing..." : "Analyze"}
         </button>
 
         <button
           onClick={() => onPickFile(null)}
           disabled={!file || status === "uploading"}
-          className="rounded-xl border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700 disabled:cursor-not-allowed disabled:opacity-60"
+          className={UI.secondaryButton}
         >
           Clear
         </button>
@@ -143,29 +144,54 @@ function DropZone({
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
       onDrop={onDrop}
+      onClick={() => {
+        if (status !== "uploading") onBrowse();
+      }}
+      onKeyDown={(e) => {
+        if (status === "uploading") return;
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onBrowse();
+        }
+      }}
+      role="button"
+      tabIndex={status === "uploading" ? -1 : 0}
+      aria-label="Upload PDF file"
       className={[
-        "rounded-2xl border border-dashed p-6 transition",
-        isDragging ? "border-emerald-500 bg-emerald-50" : "border-neutral-300 bg-neutral-50",
+        "rounded-2xl border-4 border-dashed p-8 transition outline-none",
+        status === "uploading" ? "cursor-not-allowed opacity-70" : "cursor-pointer",
+        isDragging
+          ? "border-emerald-500 bg-emerald-50"
+          : "border-neutral-300 bg-neutral-50 hover:border-neutral-400 hover:bg-neutral-100 hover:shadow-sm",
       ].join(" ")}
     >
-      <div className="flex flex-col items-start gap-3">
+      <div className="flex flex-col items-center justify-center gap-4 text-center">
+        <div className="grid h-20 w-20 place-items-center rounded-full border border-neutral-300 bg-white">
+          <svg
+            viewBox="0 0 24 24"
+            className="h-10 w-10 text-neutral-500"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 16V5" />
+            <path d="m7 10 5-5 5 5" />
+            <path d="M20 16.5a3.5 3.5 0 0 1-3.5 3.5h-9A3.5 3.5 0 0 1 4 16.5" />
+          </svg>
+        </div>
+
         <div className="text-sm text-neutral-700">
           {file ? (
             <span>
               Selected: <span className="font-semibold">{file.name}</span>
             </span>
           ) : (
-            <span>Drag and drop a PDF here, or browse.</span>
+            <span>Drag and drop a PDF here, or click anywhere to browse.</span>
           )}
         </div>
-
-        <button
-          onClick={onBrowse}
-          disabled={status === "uploading"}
-          className="rounded-xl border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          Browse files
-        </button>
 
         <div className="text-xs text-neutral-500">
           PDF only. If your file is a scanned image PDF, results may be limited until OCR is added.

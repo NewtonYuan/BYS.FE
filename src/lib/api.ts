@@ -1,4 +1,5 @@
 import type { LeaseReport } from "@/lib/types";
+import { normalizeLeaseReport } from "@/lib/report";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:2001";
 
@@ -9,7 +10,7 @@ export type HealthCheckResult = {
   body: string;
 };
 
-export async function analyzeLease(file: File): Promise<LeaseReport> {
+export async function analyze(file: File): Promise<LeaseReport> {
   const form = new FormData();
   form.append("file", file);
 
@@ -27,7 +28,8 @@ export async function analyzeLease(file: File): Promise<LeaseReport> {
     throw new Error(msg);
   }
 
-  return (await res.json()) as LeaseReport;
+  const data: unknown = await res.json();
+  return normalizeLeaseReport(data);
 }
 
 export async function checkHealth(): Promise<HealthCheckResult> {

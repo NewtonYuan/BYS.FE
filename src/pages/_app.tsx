@@ -2,6 +2,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import "@/app/globals.css";
 import icon from "@/app/icon.png";
+import Footer from "@/components/Footer";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href={icon.src} />
       </Head>
       <Component {...pageProps} />
+      <Footer />
     </>
   );
 }
