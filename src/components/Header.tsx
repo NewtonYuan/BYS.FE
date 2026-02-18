@@ -43,7 +43,7 @@ export default function Header() {
         <div className="hidden items-center gap-3 md:flex">
             <Link
               href="/contact"
-              className="rounded-lg px-3 py-1.5 text-base font-semibold text-white transition hover:opacity-90"
+              className="rounded-lg px-3 py-1.5 text-base font-semibold text-white transition hover:opacity-80"
               style={{ backgroundColor: COLORS.brandBlue }}
             >
               Contact Sales
@@ -92,7 +92,7 @@ export default function Header() {
             <Link
               href="/contact"
               onClick={closeMobileMenu}
-              className="rounded-lg px-3 py-2 text-center text-sm font-semibold text-white transition hover:opacity-90"
+              className="rounded-lg px-3 py-2 text-center text-sm font-semibold text-white transition hover:opacity-80"
               style={{ backgroundColor: COLORS.brandBlue }}
             >
               Contact Sales
@@ -110,3 +110,4 @@ export default function Header() {
     </nav>
   );
 }
+

@@ -10,6 +10,75 @@ export type HealthCheckResult = {
   body: string;
 };
 
+export type ContactType = "sales" | "support";
+
+export type ContactPayload = {
+  type: ContactType;
+  name: string;
+  email: string;
+  message: string;
+  website?: string;
+};
+
+export type ContactValidationDetail = {
+  path?: string;
+  message?: string;
+};
+
+export type ContactApiError = {
+  ok: false;
+  status: number;
+  error: string;
+  message: string;
+  details?: ContactValidationDetail[];
+};
+
+export type ContactApiSuccess = {
+  ok: true;
+};
+
+export async function sendContact(payload: ContactPayload): Promise<ContactApiSuccess | ContactApiError> {
+  try {
+    const response = await fetch(`${API_BASE}/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    let data: unknown = null;
+    try {
+      data = await response.json();
+    } catch {
+      // Ignore non-JSON response and return generic fallback below.
+    }
+
+    if (response.ok) {
+      return { ok: true };
+    }
+
+    const body = (data ?? {}) as {
+      error?: string;
+      message?: string;
+      details?: ContactValidationDetail[];
+    };
+
+    return {
+      ok: false,
+      status: response.status,
+      error: body.error ?? "server_error",
+      message: body.message ?? "Something went wrong. Please try again.",
+      details: body.details,
+    };
+  } catch {
+    return {
+      ok: false,
+      status: 0,
+      error: "network_error",
+      message: "Could not send message. Please try again.",
+    };
+  }
+}
+
 export async function analyze(file: File): Promise<LeaseReport> {
   const form = new FormData();
   form.append("file", file);
