@@ -15,6 +15,8 @@ type SectionTone = "success" | "warning" | "danger" | "neutral";
 type BoxTone = "normal" | "warning" | "danger";
 const SCORE_MAX = 100;
 const SCORE_DEBUG_OVERRIDE: number | null = null;
+const REPORT_DISCLAIMER =
+  "This report is an informational summary only and is not legal advice. Review your full agreement before signing.";
 
 const RISK_FLAGS: Array<{ key: RiskKey; label: string; helper: string }> = [
   {
@@ -440,7 +442,7 @@ export default function ReportView({ report }: { report: LeaseReport }) {
       </Section>
 
       <div className="pt-1 text-xs text-neutral-600">
-        <span className="font-semibold text-neutral-700">Disclaimer:</span> {valueOrNotFound(report.disclaimer)}
+        <span className="font-semibold text-neutral-700">Disclaimer:</span> {REPORT_DISCLAIMER}
       </div>
     </div>
   );

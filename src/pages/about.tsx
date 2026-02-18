@@ -1,13 +1,13 @@
 import Header from "@/components/Header";
 import Link from "next/link";
-import { UI } from "@/lib/theme";
+import { COLORS, UI } from "@/lib/theme";
 
 export default function AboutPage() {
   return (
     <main className={UI.page}>
       <Header />
 
-      <section className="bg-sky-100">
+      <section style={{ backgroundColor: `${COLORS.brandBlue}33` }}>
         <div className="mx-auto grid w-full max-w-6xl items-center gap-14 px-8 py-20 md:grid-cols-3 md:px-12">
           <div className="md:col-span-2">
             <h1 className="text-4xl font-bold tracking-tight text-neutral-900">Our Mission</h1>
@@ -17,7 +17,10 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="md:col-span-1">
-            <div className="grid h-52 place-items-center rounded-lg bg-white/70 text-sky-700">
+            <div
+              className="grid h-52 place-items-center rounded-lg bg-white/70"
+              style={{ color: COLORS.brandBlue }}
+            >
               <svg viewBox="0 0 24 24" className="h-16 w-16" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M6 3h9l3 3v15H6z" />
                 <path d="M15 3v3h3" />
@@ -88,7 +91,10 @@ export default function AboutPage() {
       </section>
 
       <section className="relative overflow-hidden bg-neutral-900 text-white">
-        <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-sky-400/20 blur-2xl" />
+        <div
+          className="absolute right-0 top-0 h-40 w-40 rounded-full blur-2xl"
+          style={{ backgroundColor: `${COLORS.brandBlue}33` }}
+        />
         <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-emerald-400/20 blur-2xl" />
         <div className="relative mx-auto w-full max-w-6xl px-8 py-20 md:px-12">
           <h2 className="text-3xl font-semibold tracking-tight">Ready to Review Your Agreement?</h2>

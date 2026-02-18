@@ -7,7 +7,7 @@ import ReportSkeleton from "@/components/ReportSkeleton";
 import { getReportServerSnapshot, getReportSnapshot, setPersistedReport, subscribeReport } from "@/lib/reportStore";
 import { COLORS, UI } from "@/lib/theme";
 
-export default function Home() {
+export default function ToolPage() {
   const report = useSyncExternalStore(subscribeReport, getReportSnapshot, getReportServerSnapshot);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const clearReport = () => setPersistedReport(null);
@@ -22,7 +22,7 @@ export default function Home() {
             <span className="block text-neutral-700">Understand your contract</span>
             <span
               className="mt-2 inline-block px-2 py-1 text-neutral-900 md:text-5xl"
-              style={{ backgroundImage: `linear-gradient(to top, ${COLORS.brandBlue}55 30%, transparent 30%)` }}
+              style={{ backgroundImage: `linear-gradient(to top, ${COLORS.brandBlue} 30%, transparent 30%)` }}
             >
               Before You Sign.
             </span>
