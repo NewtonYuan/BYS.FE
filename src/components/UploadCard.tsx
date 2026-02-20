@@ -115,9 +115,9 @@ export default function UploadCard({ onReportChange, onAnalyzeStateChange }: Upl
 
   return (
     <div className={`${UI.card} p-6`}>
-      <h2 className="text-2xl font-semibold">Upload your contract here.</h2>
+      <h2 className="text-2xl font-semibold">Upload your agreement here.</h2>
       <p className="mt-2 text-sm text-neutral-700">
-        Upload the contract you wish to understand
+        Upload the agreement you wish to understand
       </p>
 
       <div className="mt-5">
@@ -243,7 +243,7 @@ function DropZone({
               <div className="h-9 w-9 animate-spin rounded-full border-4 border-neutral-300 border-t-emerald-600" />
             </div>
             <div className="text-sm font-medium text-neutral-700">
-              {status === "processing" ? "Uploading your file..." : "Analyzing your contract..."}
+              {status === "processing" ? "Uploading your file..." : "Analyzing your agreement..."}
             </div>
             <div className="text-xs text-neutral-500">
               PDF only, max 10MB.

@@ -19,7 +19,7 @@ export default function Home() {
       <div className="mx-auto flex min-h-[calc(100vh-61px)] w-full max-w-7xl flex-col justify-center px-6 py-10">
         <header id="about" className="mb-8 flex flex-col items-center gap-4 text-center">
           <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            <span className="block text-neutral-700">Understand your contract</span>
+            <span className="block text-neutral-700">Understand your agreement</span>
             <span
               className="mt-2 inline-block px-2 py-1 text-neutral-900 md:text-5xl"
               style={{ backgroundImage: `linear-gradient(to top, ${COLORS.brandBlue}55 30%, transparent 30%)` }}

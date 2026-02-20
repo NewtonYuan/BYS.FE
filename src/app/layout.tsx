@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Before You Sign",
-  description: "Free Contract Analyzer, Check for Contract Traps, Understand what you're Signing.",
+  description: "Free Agreement Analyzer, Check for Agreement Traps, Understand what you're Signing.",
 };
 
 export default function RootLayout({

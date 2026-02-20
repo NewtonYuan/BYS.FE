@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Before You Sign</title>
         <meta
           name="description"
-          content="Free Contract Analyzer, Check for Contract Traps, Understand what you're Signing."
+          content="Free Agreement Analyzer, Check for Agreement Traps, Understand what you're Signing."
         />
         <link rel="icon" href={icon.src} />
       </Head>
