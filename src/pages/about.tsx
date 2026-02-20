@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Link from "next/link";
+import Image from "next/image";
 import { COLORS, UI } from "@/lib/theme";
 
 export default function AboutPage() {
@@ -18,14 +19,16 @@ export default function AboutPage() {
           </div>
           <div className="md:col-span-1">
             <div
-              className="grid h-52 place-items-center rounded-lg bg-white/70"
-              style={{ color: COLORS.brandBlue }}
+              className="relative h-52 overflow-hidden rounded-lg"
             >
-              <svg viewBox="0 0 24 24" className="h-16 w-16" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <path d="M6 3h9l3 3v15H6z" />
-                <path d="M15 3v3h3" />
-                <path d="M9 12h6M9 16h6M9 8h3" />
-              </svg>
+              <Image
+                src="/images/about-us.jpg"
+                alt="Students reviewing a rental agreement"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 33vw, 100vw"
+                priority
+              />
             </div>
           </div>
         </div>
@@ -34,10 +37,14 @@ export default function AboutPage() {
       <section className="bg-white">
         <div className="mx-auto grid w-full max-w-6xl items-center gap-14 px-8 pb-8 pt-20 md:grid-cols-3 md:px-12">
           <div className="md:col-span-1">
-            <div className="grid h-48 place-items-center rounded-lg bg-neutral-50 text-neutral-700">
-              <svg viewBox="0 0 24 24" className="h-14 w-14" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <path d="M4 7h16M4 12h10M4 17h8" />
-              </svg>
+            <div className="relative h-48 overflow-hidden rounded-lg">
+              <Image
+                src="/images/students.jpg"
+                alt="Student reading housing documents"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 33vw, 100vw"
+              />
             </div>
           </div>
           <div className="md:col-span-2">
@@ -60,11 +67,14 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="md:col-span-1">
-            <div className="grid h-48 place-items-center rounded-lg bg-neutral-50 text-neutral-700">
-              <svg viewBox="0 0 24 24" className="h-14 w-14" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <circle cx="12" cy="12" r="9" />
-                <path d="m9 12 2 2 4-4" />
-              </svg>
+            <div className="relative h-48 overflow-hidden rounded-lg">
+              <Image
+                src="/images/skytower.jpg"
+                alt="Sky Tower skyline"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 33vw, 100vw"
+              />
             </div>
           </div>
         </div>

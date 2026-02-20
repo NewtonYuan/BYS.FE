@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Header from "@/components/Header";
+import Image from "next/image";
 import { COLORS, UI } from "@/lib/theme";
 import { sendContact } from "@/lib/api";
 
@@ -159,7 +160,7 @@ export default function ContactPage() {
     <main className={UI.page}>
       <Header />
 
-      <section style={{ backgroundColor: COLORS.brandBlue }}>
+      <section className="relative overflow-visible" style={{ backgroundColor: COLORS.brandBlue }}>
         <div className="mx-auto grid w-full max-w-6xl items-center gap-14 px-8 py-20 md:grid-cols-3 md:px-12 pb-36">
           <div className="md:col-span-2">
             <h1 className="text-5xl font-bold tracking-tight text-white">Contact Us</h1>
@@ -170,18 +171,22 @@ export default function ContactPage() {
           </div>
           <div className="md:col-span-1">
             <div
-              className="relative grid h-52 place-items-center rounded-lg bg-white/10 text-white"
+              className="relative z-0 h-52 overflow-hidden rounded-lg md:h-[30rem] md:-mb-64"
             >
-              <svg viewBox="0 0 24 24" className="h-24 w-24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <path d="M4 6h16v12H4z" />
-                <path d="m4 8 8 6 8-6" />
-              </svg>
+              <Image
+                src="/images/contact-us.jpg"
+                alt="Contact Before You Sign"
+                fill
+                className="object-cover md:-translate-y-10"
+                sizes="(min-width: 768px) 33vw, 100vw"
+                priority
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-white">
+      <section className="relative z-10 bg-white">
         <div className="mx-auto -mt-6 w-full max-w-6xl px-8 pb-8 md:px-12">
           <div className="grid items-start gap-5 md:grid-cols-2">
             <article className="relative top-[-64px] flex flex-col items-center rounded-lg border border-neutral-200 bg-white px-6 py-10 text-center shadow-sm">
@@ -284,7 +289,7 @@ export default function ContactPage() {
                 </form>
               ) : null}
             </article>
-            <article className="relative top-[-64px] flex flex-col items-center rounded-lg border border-neutral-200 bg-white px-6 py-10 text-center shadow-sm">
+            <article className="relative z-20 top-[-64px] flex flex-col items-center rounded-lg border border-neutral-200 bg-white px-6 py-10 text-center shadow-sm">
               <div className="mb-4 grid h-12 w-12 place-items-center rounded-full bg-emerald-100 text-emerald-700">
                 <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <path d="M8 10h8" />
